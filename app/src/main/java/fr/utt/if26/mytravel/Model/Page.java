@@ -1,18 +1,18 @@
-package fr.utt.if26.mytravel;
+package fr.utt.if26.mytravel.Model;
+
 
 /**
  * Created by paf on 08/11/17.
  */
 
-public class Page {
 
-    private int id;
+public class Page extends BaseModel {
     private String title;
     private String content;
     private String summary;
 
     public Page(int id_pf, String title_pf, String content_pf, String summary_pf) {
-        id = id_pf;
+        setId(id_pf);
         title = title_pf;
         content = content_pf;
         summary = summary_pf;
@@ -30,15 +30,6 @@ public class Page {
                 "\n- Contenu : " + getContent() +
                 "\n- Extrait : " + getSummary() +
                 "\n";
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {

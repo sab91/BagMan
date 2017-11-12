@@ -1,18 +1,67 @@
 language: android
+notifications:
+    email: false
+jdk: oraclejdk8
+sudo: required
+
 android:
   components:
-    - platform-tools
     - tools
-    - build-tools-24.0.2
-    - android-22
-    - android-24
-    - sys-img-armeabi-v7a-android-22
+    - build-tools-25.0.2
+    - platform-tools
     - extra-android-m2repository
+    - extra-google-android-support
+
+    - android-25
+
+    - sys-img-armeabi-v7a-android-25
+
+
+  script: gradle build connectedCheck
   before_script:
     - echo "Hello you !"
       echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent B2 &
-  script: gradle build connectedCheck
-
+  licenses:
+    - '.+'
+  before_install:
+      - mkdir "$ANDROID_HOME/licenses" || true
+          - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+              - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+  install:
+    - sdkmanager --list || true
+    - sdkmanager --uninstall \"system-images;android-15;default;armeabi-v7a\"
+    - sdkmanager --uninstall \"system-images;android-16;default;armeabi-v7a\"
+    - sdkmanager --uninstall \"system-images;android-17;default;armeabi-v7a\"
+    -  sdkmanager --uninstall \"system-images;android-18;default;armeabi-v7a\"
+    -  sdkmanager --uninstall \"system-images;android-19;default;armeabi-v7a\"
+    -  sdkmanager --uninstall \"system-images;android-21;default;armeabi-v7a\"
+    -  sdkmanager --uninstall \"extras;google;google_play_services\"
+    -  sdkmanager --uninstall \"extras;android;support\"
+    -  sdkmanager --uninstall \"platforms;android-10\"
+    -  sdkmanager --uninstall \"platforms;android-15\"
+    -  sdkmanager --uninstall \"platforms;android-16\"
+    -  sdkmanager --uninstall \"platforms;android-17\"
+    -  sdkmanager --uninstall \"platforms;android-18\"
+    -  sdkmanager --uninstall \"platforms;android-19\"
+    -  sdkmanager --uninstall \"platforms;android-20\"
+    -  sdkmanager --uninstall \"platforms;android-21\"
+    -  sdkmanager --uninstall \"build-tools;21.1.2\"
+    -  echo yes | sdkmanager \"tools\"
+    -  echo yes | sdkmanager \"platforms;android-25\"
+    -  echo yes | sdkmanager \"platforms;android-${API}\"
+    -  echo yes | sdkmanager \"extras;android;m2repository\"
+    -  echo yes | sdkmanager \"extras;google;m2repository\"
+    -  echo yes | sdkmanager \"extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2\"
+    -  echo yes | sdkmanager \"extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2\"
+    -  echo yes | sdkmanager \"$EMULATOR\"
+    -  echo no | avdmanager create avd -n acib -k \"$EMULATOR\" -f --abi \"$ABI\" --tag \"$TAG\"
+    -  emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
+    -  adb wait-for-device get-serialno
+    -  cd ${TRAVIS_BUILD_DIR}/${DIR} && ./gradlew --version
+    -  cd ${TRAVIS_BUILD_DIR}/${DIR} && ./gradlew clean build
+    -  sdkmanager --list || true
+  global_env:
+    - DIR=constraint-layout-start API=25 TAG=google_apis ABI=armeabi-v7a QEMU_AUDIO_DRV=none GRADLE_USER_HOME=\"${TRAVIS_BUILD_DIR}/gradle\" ANDROID_HOME=/usr/local/android-sdk-24.0.2 TOOLS=${ANDROID_HOME}/tools PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH} ADB_INSTALL_TIMEOUT=20

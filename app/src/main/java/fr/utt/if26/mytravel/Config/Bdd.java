@@ -1,4 +1,4 @@
-package fr.utt.if26.mytravel;
+package fr.utt.if26.mytravel.Config;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -4,7 +4,7 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 
-import fr.utt.if26.mytravel.Bdd;
+import fr.utt.if26.mytravel.Config.Bdd;
 
 public abstract class DAO {
     private String modelName;

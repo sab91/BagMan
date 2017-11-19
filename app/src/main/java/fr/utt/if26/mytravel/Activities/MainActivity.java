@@ -1,4 +1,4 @@
-package fr.utt.if26.mytravel;
+package fr.utt.if26.mytravel.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +7,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import fr.utt.if26.mytravel.Config.Bdd;
 import fr.utt.if26.mytravel.DAO.PageDAO;
+import fr.utt.if26.mytravel.Model.Page;
+
+import fr.utt.if26.mytravel.R;
 
 public class MainActivity extends AppCompatActivity {
 

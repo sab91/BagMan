@@ -8,8 +8,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import fr.utt.if26.mytravel.Bdd;
-import fr.utt.if26.mytravel.Page;
+import fr.utt.if26.mytravel.Config.Bdd;
+import fr.utt.if26.mytravel.Model.Page;
 
 /**
  * Created by paf on 10/11/17.

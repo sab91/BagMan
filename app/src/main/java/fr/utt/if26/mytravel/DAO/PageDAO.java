@@ -35,6 +35,8 @@ public class PageDAO extends DAO implements BaseColumns{
         v.put(Bdd.FeedPage.TITLE, page.getTitle());
         v.put(Bdd.FeedPage.CONTENT, page.getContent());
         v.put(Bdd.FeedPage.SUMMARY, page.getSummary());
+        v.put(Bdd.FeedPage.CREATED_AT, page.getCreatedAt());
+        v.put(Bdd.FeedPage.UPDATED_AT, page.getUpdatedAt());
 
         try {
             int id = (int) getDb().getWritableDatabase().insert(getModelName(), null, v);
@@ -69,7 +71,7 @@ public class PageDAO extends DAO implements BaseColumns{
     }
 
     public ArrayList getList() {
-        String[] projections = {"_id", "title", "content", "summary"};
+        String[] projections = {"_id", "title", "content", "summary", "created_at", "updated_at"};
         String sortOrder = projections[0] + " DESC";
         Cursor c = getDb().getReadableDatabase().query(
                 getModelName(),
@@ -94,7 +96,9 @@ public class PageDAO extends DAO implements BaseColumns{
             String itemTitle = c_pf.getString(1);
             String itemContent = c_pf.getString(2);
             String itemSummary = c_pf.getString(3);
-            Page page = new Page(itemId, itemTitle, itemContent, itemSummary);
+            long itemCreatedAt = c_pf.getLong(4);
+            long itemUpdatedAt = c_pf.getLong(5);
+            Page page = new Page(itemId, itemTitle, itemContent, itemSummary, itemCreatedAt, itemUpdatedAt);
             return page;
         } catch(Exception e) {
             Log.i("Ex", e.getMessage());

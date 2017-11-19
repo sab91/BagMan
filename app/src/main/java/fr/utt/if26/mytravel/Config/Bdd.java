@@ -87,12 +87,16 @@ public class Bdd extends SQLiteOpenHelper {
         public static final String TITLE = "title";
         public static final String CONTENT = "content";
         public static final String SUMMARY = "summary";
+        public static final String CREATED_AT = "created_at";
+        public static final String UPDATED_AT = "updated_at";
         public static final String SQL_CREATE_PAGES =
             "CREATE TABLE " + MODEL_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY," +
                 TITLE + " TEXT," +
                 CONTENT + " TEXT," +
-                SUMMARY + " TEXT)";
+                SUMMARY + " TEXT," +
+                CREATED_AT + " INTEGER," +
+                UPDATED_AT + " INTEGER)";
         public static final String SQL_DELETE_PAGES = "DROP TABLE IF EXISTS " + MODEL_NAME;
     }
 

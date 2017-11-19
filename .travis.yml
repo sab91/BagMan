@@ -18,7 +18,8 @@ android:
     - sys-img-armeabi-v7a-android-25
 
 
-  script: gradle build connectedCheck
+  script: 
+    - "./gradle build connectedCheck -PdisablePreDex --stacktrace"
   before_script:
     - echo "Hello you !"
       echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
@@ -29,8 +30,10 @@ android:
     - '.+'
   before_install:
       - mkdir "$ANDROID_HOME/licenses" || true
-          - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-              - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+      - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+      - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+      - chmod +x gradlew
+      - ./gradlew dependencies || true
   install:
     - sdkmanager --list || true
     - sdkmanager --uninstall \"system-images;android-15;default;armeabi-v7a\"

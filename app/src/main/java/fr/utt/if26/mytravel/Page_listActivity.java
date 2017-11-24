@@ -23,7 +23,25 @@ public class Page_listActivity extends AppCompatActivity {
 
         database = new Bdd(this);
         pdao = new PageDAO(database);
+
+        ArrayAdapter arr = new ArrayAdapter(this, R.layout.activity_page_list, R.id.item_page, pdao.getList());
+        ListView page_lv = (ListView) findViewById(android.R.id.list);
+        page_lv.setAdapter(arr);
+        page_lv.setOnItemClickListener(item_action);
     }
+
+    private AdapterView.OnItemClickListener item_action = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            final Page page = (Page) parent.getItemAtPosition(position);
+            Intent page_itemIntent = new Intent(Page_listActivity.this, Page_itemActivity.class);
+            Bundle extras = new Bundle();
+
+            extras.putInt("id", page.getId());
+            page_itemIntent.putExtras(extras);
+            startActivity(page_itemIntent);
+        }
+    };
 
     @Override
     public void onDestroy(){

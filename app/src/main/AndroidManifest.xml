@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Page_listActivity" />
-        <activity android:name=".Page_itemActivity"></activity>
+        <activity android:name=".Page_itemActivity" />
+        <activity android:name=".Page_createActivity"></activity>
     </application>
 
 </manifest>

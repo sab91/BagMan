@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -24,11 +25,22 @@ public class Page_listActivity extends AppCompatActivity {
         database = new Bdd(this);
         pdao = new PageDAO(database);
 
-        ArrayAdapter arr = new ArrayAdapter(this, R.layout.activity_page_list, R.id.item_page, pdao.getList());
-        ListView page_lv = (ListView) findViewById(android.R.id.list);
+        ArrayAdapter arr = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pdao.getList());
+        ListView page_lv = (ListView) findViewById(R.id.list_page);
         page_lv.setAdapter(arr);
         page_lv.setOnItemClickListener(item_action);
+
+        Button new_pageButton = (Button) findViewById(R.id.new_pageButton);
+        new_pageButton.setOnClickListener(create_page);
     }
+
+    private View.OnClickListener create_page = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent page_createIntent = new Intent(Page_listActivity.this, Page_createActivity.class);
+            startActivity(page_createIntent);
+        }
+    };
 
     private AdapterView.OnItemClickListener item_action = new AdapterView.OnItemClickListener() {
         @Override

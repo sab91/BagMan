@@ -35,10 +35,10 @@ public abstract class DAO {
 
     /**
      * Suppression d'un element (ligne)
-     * @param ob
+     * @param id
      * Ajouter un return si succes ou echec
      */
-    public abstract void deleteRow(Object ob);
+    public abstract void deleteRow(int id);
 
     /**
      * Recuperation d'un objet en fonction d'un id

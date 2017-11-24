@@ -48,10 +48,9 @@ public class PageDAO extends DAO implements BaseColumns{
 
     }
 
-    public void deleteRow(Object ob) {
-        Page page = (Page) ob;
+    public void deleteRow(int id_pf) {
         String select = "_id LIKE ?";
-        String[] args = { page.getId()+"" };
+        String[] args = { id_pf+"" };
         getDb().getWritableDatabase().delete(getModelName(), select, args);
     }
 

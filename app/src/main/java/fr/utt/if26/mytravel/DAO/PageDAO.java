@@ -107,14 +107,14 @@ public class PageDAO extends DAO implements BaseColumns{
 
     public void updateRow(int id, Object ob) {
         Page page = (Page) ob;
-        // Méthode à l'ancienne, faute d'avoir reussi à faire fonctionner l'autre ^^
-        String sql = "UPDATE " + Bdd.FeedPage.MODEL_NAME + " SET " +
-                Bdd.FeedPage.TITLE + "='" + page.getTitle() + "', " +
-                Bdd.FeedPage.CONTENT + "='" + page.getContent() + "', " +
-                Bdd.FeedPage.SUMMARY + "='" + page.getSummary() + "' " +
-                "WHERE _id = " + id;
+        String filter = "_id="+id;
+        ContentValues args = new ContentValues();
+        args.put(Bdd.FeedPage.TITLE, page.getTitle());
+        args.put(Bdd.FeedPage.CONTENT, page.getContent());
+        args.put(Bdd.FeedPage.SUMMARY, page.getSummary());
+
         try {
-            getDb().getDatabase().execSQL(sql);
+            getDb().getWritableDatabase().update(Bdd.FeedPage.MODEL_NAME, args, filter, null);
         } catch (Exception e) {
             Log.i("====", e.getMessage());
         }

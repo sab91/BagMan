@@ -9,6 +9,9 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
+        testHandleProfiling true
+        testFunctionalTest true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -24,6 +27,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    androidTestCompile 'com.android.support:support-annotations:26.0.0-alpha1'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'

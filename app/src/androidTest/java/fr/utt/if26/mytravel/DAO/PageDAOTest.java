@@ -11,8 +11,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import fr.utt.if26.mytravel.Bdd;
-import fr.utt.if26.mytravel.Page;
+import fr.utt.if26.mytravel.Config.Bdd;
+import fr.utt.if26.mytravel.Model.Page;
 
 import static org.junit.Assert.*;
 
@@ -149,7 +149,7 @@ public class PageDAOTest {
         ArrayList i = new ArrayList();
         assertTrue(plist.size() == 4);
 
-        pdao.deleteRow(page2);
+        pdao.deleteRow(page2.getId());
 
         plist = pdao.getList();
         assertTrue(plist.size() == 3);

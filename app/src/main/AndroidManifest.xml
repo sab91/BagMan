@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.Page_listActivity" />
+        <activity android:name=".Activities.Page_itemActivity" />
+        <activity android:name=".Activities.Page_createActivity"></activity>
     </application>
 
 </manifest>

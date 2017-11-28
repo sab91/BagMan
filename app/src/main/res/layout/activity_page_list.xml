@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.utt.if26.mytravel.Page_listActivity"
+    tools:context="fr.utt.if26.mytravel.Activities.Page_listActivity"
     android:orientation="vertical">
 
     <ListView

@@ -38,6 +38,7 @@ public class Bdd extends SQLiteOpenHelper {
         // Try - Catch pour choper les erreurs lors de la création des tables
         try {
             createPageTable();
+            createCarnetTable();
         } catch (Exception ex){
             // Essayer de préciser quel Table pose problème
             Log.e("===", "Probleme dans la création des tables");
@@ -57,6 +58,14 @@ public class Bdd extends SQLiteOpenHelper {
         }
     }
 
+    public void createCarnetTable() {
+        try {
+            database.execSQL(FeedCarnet.SQL_CREATE_CARNET);
+            Log.i("==", FeedCarnet.MODEL_NAME + " is created");
+        } catch(Exception ex) {
+            Log.i("===", ex.getMessage());
+        }
+    }
 
     /**
      * Suppresion de l'ensemble des tables de la bdd
@@ -73,6 +82,15 @@ public class Bdd extends SQLiteOpenHelper {
         try {
             database.execSQL(FeedPage.SQL_DELETE_PAGES);
             Log.i("==", FeedPage.MODEL_NAME + " has been deleted");
+        } catch(Exception ex) {
+            Log.i("===", "Prob de suppression");
+        }
+    }
+
+    public void deleteCarnetTable() {
+        try {
+            database.execSQL(FeedCarnet.SQL_DELETE_CARNET);
+            Log.i("==", FeedCarnet.MODEL_NAME + " has been deleted");
         } catch(Exception ex) {
             Log.i("===", "Prob de suppression");
         }
@@ -104,7 +122,22 @@ public class Bdd extends SQLiteOpenHelper {
      * Future classe pour Story, sous la même forme que Page
      */
     public class FeedStory implements BaseColumns {}
-    public class FeedCarnet implements BaseColumns {}
+
+    public class FeedCarnet implements BaseColumns {
+
+        public static final String MODEL_NAME = "carnet";
+        public static final String NAME = "name";
+        public static final String CREATED_AT = "created_at";
+        public static final String UPDATED_AT = "updated_at";
+        public static final String SQL_CREATE_CARNET =
+                "CREATE TABLE " + MODEL_NAME + " (" +
+                        _ID + " INTEGER PRIMARY KEY," +
+                        NAME + " TEXT," +
+                        CREATED_AT + " INTEGER," +
+                        UPDATED_AT + " INTEGER)";
+        public static final String SQL_DELETE_CARNET = "DROP TABLE IF EXISTS " + MODEL_NAME;
+
+    }
 
 
     /**

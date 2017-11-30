@@ -3,11 +3,17 @@ package fr.utt.if26.mytravel.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import fr.utt.if26.mytravel.Config.Bdd;
+import fr.utt.if26.mytravel.DAO.CarnetDAO;
 import fr.utt.if26.mytravel.DAO.PageDAO;
+import fr.utt.if26.mytravel.Model.Carnet;
 import fr.utt.if26.mytravel.Model.Page;
 
 import fr.utt.if26.mytravel.R;
@@ -15,6 +21,16 @@ import fr.utt.if26.mytravel.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean first_run = true;
     private Bdd database;
+
+    public void display(ArrayList ps) {
+        Iterator<Carnet> it = ps.iterator();
+        String sb = "";
+        while(it.hasNext()) {
+            Carnet c = it.next();
+            sb = sb + " " + c.toString() + "\n";
+        }
+        Log.e("====", sb);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +43,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // instanciation d'un Objet PageDao pour interagir avec la table Page
         PageDAO pdao = new PageDAO(database);
+        /*CarnetDAO cdao = new CarnetDAO(database);
+
+        Carnet c = new Carnet("test");
+        Carnet c2 = new Carnet("ctest2");
+
+        c.setId(cdao.insertRow(c));
+        c2.setId(cdao.insertRow(c2));
+
+        Log.e("test", c.toString());
+        Log.e("test", c2.toString());
+
+        ArrayList<String> aa = cdao.getList();
+        display(aa);*/
+
+
 
         if(first_run) {
             deleteDatabase(Bdd.DATABASE_NAME);
@@ -47,6 +78,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button page_listButton = (Button)findViewById(R.id.page_listButton);
         page_listButton.setOnClickListener(this);
+
+        CarnetDAO cdao = new CarnetDAO(database);
+
+        Carnet c = new Carnet("test");
+        Carnet c2 = new Carnet("ctest2");
+
+        c.setId(cdao.insertRow(c));
+        c2.setId(cdao.insertRow(c2));
+
+        Log.e("test", c.toString());
+        Log.e("test", c2.toString());
+
+        ArrayList<String> aa = cdao.getList();
+        display(aa);
 
     }
 

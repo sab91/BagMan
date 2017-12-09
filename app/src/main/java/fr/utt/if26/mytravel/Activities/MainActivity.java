@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         c.setId(cdao.insertRow(c));
         c2.setId(cdao.insertRow(c2));
 
+
         Log.e("test", c.toString());
+        //Log.e("test", String.valueOf(c.getId()));
         Log.e("test", c2.toString());
 
         ArrayList<String> aa = cdao.getList();

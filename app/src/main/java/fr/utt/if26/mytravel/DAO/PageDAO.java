@@ -112,6 +112,7 @@ public class PageDAO extends DAO implements BaseColumns{
         args.put(Bdd.FeedPage.TITLE, page.getTitle());
         args.put(Bdd.FeedPage.CONTENT, page.getContent());
         args.put(Bdd.FeedPage.SUMMARY, page.getSummary());
+        args.put(Bdd.FeedPage.UPDATED_AT, page.getUpdatedAt());
 
         try {
             getDb().getWritableDatabase().update(Bdd.FeedPage.MODEL_NAME, args, filter, null);

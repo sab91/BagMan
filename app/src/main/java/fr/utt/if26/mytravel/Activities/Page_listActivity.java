@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import fr.utt.if26.mytravel.Helpers.MenuHeader;
+import fr.utt.if26.mytravel.Helpers.PageAdapter;
 import fr.utt.if26.mytravel.Model.Page;
 import fr.utt.if26.mytravel.Config.Bdd;
 import fr.utt.if26.mytravel.DAO.PageDAO;
@@ -26,9 +26,10 @@ public class Page_listActivity extends MenuHeader {
         database = new Bdd(this);
         pdao = new PageDAO(database);
 
-        ArrayAdapter arr = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pdao.getList());
+        PageAdapter pa = new PageAdapter(this, R.layout.row_item, pdao.getList());
+
         ListView page_lv = (ListView) findViewById(R.id.list_page);
-        page_lv.setAdapter(arr);
+        page_lv.setAdapter(pa);
         page_lv.setOnItemClickListener(item_action);
 
         Button new_pageButton = (Button) findViewById(R.id.new_pageButton);

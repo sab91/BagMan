@@ -1,11 +1,14 @@
 package fr.utt.if26.mytravel.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import fr.utt.if26.mytravel.Config.Bdd;
 import fr.utt.if26.mytravel.DAO.PageDAO;
@@ -64,9 +67,8 @@ public class Page_itemActivity extends AppCompatActivity {
     private class Page_action_delete implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            pdao.deleteRow(id);
-            Intent page_listIntent = new Intent(Page_itemActivity.this, Page_listActivity.class);
-            startActivity(page_listIntent);
+            AlertDialog diaBox = AskOption(pdao.getRow(id).getTitle());
+            diaBox.show();
         }
     }
 
@@ -74,5 +76,30 @@ public class Page_itemActivity extends AppCompatActivity {
     public void onDestroy() {
         database.close();
         super.onDestroy();
+    }
+
+    private AlertDialog AskOption(final String pageTitle) {
+        AlertDialog myQuitDialBox = new AlertDialog.Builder(this)
+                .setTitle("Attention !")
+                .setMessage("Voulez-vous vraiment supprimer la page "+pageTitle+" ?")
+                .setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        pdao.deleteRow(id);
+                        dialogInterface.dismiss();
+                        Intent page_listIntent = new Intent(Page_itemActivity.this, Page_listActivity.class);
+                        startActivity(page_listIntent);
+                        Toast deleteToast = Toast.makeText(getApplicationContext(), "La page " + pageTitle + " a été supprimée", Toast.LENGTH_SHORT);
+                        deleteToast.show();
+                    }
+                })
+                .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create();
+
+        return myQuitDialBox;
     }
 }

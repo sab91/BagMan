@@ -3,7 +3,6 @@ package fr.utt.if26.mytravel.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,10 +11,11 @@ import android.widget.Toast;
 
 import fr.utt.if26.mytravel.Config.Bdd;
 import fr.utt.if26.mytravel.DAO.PageDAO;
+import fr.utt.if26.mytravel.Helpers.MenuHeader;
 import fr.utt.if26.mytravel.Model.Page;
 import fr.utt.if26.mytravel.R;
 
-public class Page_itemActivity extends AppCompatActivity {
+public class Page_itemActivity extends MenuHeader {
     private Bdd database;
     private PageDAO pdao;
     private int id;

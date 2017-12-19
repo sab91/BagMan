@@ -1,7 +1,6 @@
 package fr.utt.if26.mytravel.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,12 +12,13 @@ import java.util.Iterator;
 import fr.utt.if26.mytravel.Config.Bdd;
 import fr.utt.if26.mytravel.DAO.CarnetDAO;
 import fr.utt.if26.mytravel.DAO.PageDAO;
+import fr.utt.if26.mytravel.Helpers.MenuHeader;
 import fr.utt.if26.mytravel.Model.Carnet;
 import fr.utt.if26.mytravel.Model.Page;
 
 import fr.utt.if26.mytravel.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends MenuHeader implements View.OnClickListener {
     private boolean first_run = true;
     private Bdd database;
 
@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         c.setId(cdao.insertRow(c));
         c2.setId(cdao.insertRow(c2));
 
+
         Log.e("test", c.toString());
+        //Log.e("test", String.valueOf(c.getId()));
         Log.e("test", c2.toString());
 
         ArrayList<String> aa = cdao.getList();

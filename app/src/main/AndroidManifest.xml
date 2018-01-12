@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.utt.if26.mytravel">
+          package="fr.utt.if26.mytravel">
 
     <application
         android:allowBackup="true"
@@ -11,14 +11,20 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Page_listActivity" />
-        <activity android:name=".Activities.Page_itemActivity" />
-        <activity android:name=".Activities.Page_createActivity"></activity>
+        <activity android:name=".Activities.Page_listActivity"/>
+        <activity android:name=".Activities.Page_itemActivity"/>
+        <activity android:name=".Activities.Page_createActivity"/>
+        <activity android:name=".Activities.Carnet_listActivity">
+        </activity>
+        <activity android:name=".Activities.Carnet_itemActivity">
+        </activity>
+        <activity android:name=".Activities.Carnet_createActivity">
+        </activity>
     </application>
 
 </manifest>

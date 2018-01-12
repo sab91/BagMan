@@ -1,6 +1,7 @@
 package fr.utt.if26.mytravel.Activities;
 
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +13,12 @@ import java.util.Iterator;
 import fr.utt.if26.mytravel.Config.Bdd;
 import fr.utt.if26.mytravel.DAO.CarnetDAO;
 import fr.utt.if26.mytravel.DAO.PageDAO;
-import fr.utt.if26.mytravel.Helpers.MenuHeader;
 import fr.utt.if26.mytravel.Model.Carnet;
 import fr.utt.if26.mytravel.Model.Page;
 
 import fr.utt.if26.mytravel.R;
 
-public class MainActivity extends MenuHeader implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean first_run = true;
     private Bdd database;
 
@@ -83,9 +83,15 @@ public class MainActivity extends MenuHeader implements View.OnClickListener {
 
         Carnet c = new Carnet("test");
         Carnet c2 = new Carnet("ctest2");
+        Carnet c3 = new Carnet("cs03");
+        Carnet c4 = new Carnet("re04");
 
         c.setId(cdao.insertRow(c));
         c2.setId(cdao.insertRow(c2));
+        c4.setId(cdao.insertRow(c4));
+        cdao.updateRow(c.getId(), c3);
+        //cdao.updateRow(c.getId(), c4);
+        //cdao.deleteRow(c.getId());
 
 
         Log.e("test", c.toString());
@@ -95,13 +101,27 @@ public class MainActivity extends MenuHeader implements View.OnClickListener {
         ArrayList<String> aa = cdao.getList();
         display(aa);
 
+        Button carnet_listbtn = (Button)findViewById(R.id.carnet_listButton);
+        carnet_listbtn.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-        Class page_listActivityClass =Page_listActivity.class;
-        Intent page_listIntent = new Intent(MainActivity.this, page_listActivityClass);
-        startActivity(page_listIntent);
+
+        switch (v.getId()) {
+            case R.id.carnet_listButton :
+                Class carnet_listActivityClass = Carnet_listActivity.class;
+                Intent carnet_listIntent = new Intent(MainActivity.this, carnet_listActivityClass);
+                startActivity(carnet_listIntent);
+                break;
+            case R.id.page_listButton :
+                Class page_listActivityClass =Page_listActivity.class;
+                Intent page_listIntent = new Intent(MainActivity.this, page_listActivityClass);
+                startActivity(page_listIntent);
+                break;
+        }
+
     }
 
     @Override

@@ -1,12 +1,15 @@
 package fr.utt.if26.mytravel.Helpers;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import fr.utt.if26.mytravel.Activities.Carnet_listActivity;
 import fr.utt.if26.mytravel.Activities.MainActivity;
 import fr.utt.if26.mytravel.R;
 
@@ -18,6 +21,7 @@ import fr.utt.if26.mytravel.R;
  */
 public abstract class MenuHeader extends AppCompatActivity {
 
+    private String current_email;
     /**
      * Création du menu, lien avec le xml
      * @param menu
@@ -38,16 +42,22 @@ public abstract class MenuHeader extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        current_email = getIntent().getStringExtra("EMAIL_ACCOUNT");
+
         switch(item.getItemId()) {
-            case R.id.main:
-                Intent targetIntent = new Intent(MenuHeader.this, MainActivity.class);
-                startActivity(targetIntent);
+            case R.id.home:
+                Intent homeIntent = new Intent(MenuHeader.this, Carnet_listActivity.class);
+                startActivity(homeIntent);
                 return true;
-            case R.id.listCarnet:
-                Log.e("====", "liste ");
-                return true;
-            case R.id.newCarnet:
-                Log.e("====", "new");
+            case R.id.disconnect:
+                Toast toast = Toast.makeText(getApplicationContext(), "Disconnection...", Toast
+                        .LENGTH_SHORT);
+                toast.show();
+                Intent disconnectIntent = new Intent(MenuHeader.this, MainActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("EMAIL_ACCOUNT", current_email);
+                disconnectIntent.putExtras(extras);
+                startActivity(disconnectIntent);
                 return true;
             default: return false;
         }

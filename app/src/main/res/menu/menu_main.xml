@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/main"
+    <item android:id="@+id/home"
         android:title="Accueil"/>
-    <item android:id="@+id/listCarnet"
-        android:title="Carnets"/>
-    <item android:id="@+id/newCarnet"
-        android:title="Nouveau"/>
+
+    <item android:id="@+id/disconnect"
+        android:title="Disconnect"/>
 </menu>

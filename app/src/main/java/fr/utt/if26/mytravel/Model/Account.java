@@ -11,6 +11,12 @@ public class Account extends BaseModel {
     private String email;
     private String password;
 
+    public Account() {
+        super();
+        email = "aa";
+        password = "pp";
+    }
+
     public Account(String mail, String mdp) {
         super();
         email = mail;
@@ -47,7 +53,7 @@ public class Account extends BaseModel {
 
 
     public String toString() {
-        String sb = "Carnet : " + getId() +
+        String sb = "- EmailId : " + getId() +
                 "\n- Email : " + getEmail() +
                 "\n- Password : " + getPassword() +
                 "\n - CreatedAt : " + getCreatedAt() +

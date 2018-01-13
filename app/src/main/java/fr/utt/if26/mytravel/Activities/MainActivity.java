@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,8 +19,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import fr.utt.if26.mytravel.Config.Bdd;
+import fr.utt.if26.mytravel.DAO.AuthDAO;
 import fr.utt.if26.mytravel.DAO.CarnetDAO;
 import fr.utt.if26.mytravel.DAO.PageDAO;
+import fr.utt.if26.mytravel.Model.Account;
 import fr.utt.if26.mytravel.Model.Carnet;
 import fr.utt.if26.mytravel.Model.Page;
 
@@ -28,9 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Bdd database;
     private EditText Email;
     private EditText Password;
-    private TextView Info;
     private Button login;
     private Button register;
+    private AuthDAO adao;
+    private Account account;
 
 
 
@@ -43,8 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // ==== Exemples pour interagire avec la base de données simplement
         // initialisation/creation de la bdd
         database = new Bdd(this);
-
-
+        adao = new AuthDAO(database);
 
         // Text enter in text field in log in page
         Email = (EditText) findViewById(R.id.email_login);
@@ -59,28 +63,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         register.setOnClickListener(this);
 
 
-        // Button for seeing carnets
-        Button carnet_listbtn = (Button)findViewById(R.id.carnet_listButton);
-        carnet_listbtn.setOnClickListener(this);
 
 
     }
 
     private void validate(String userEmail, String userPassword) {
-        if (userEmail.equals("admin") && userPassword.equals("mm")) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Authentication Successful",
-                    Toast
-                    .LENGTH_SHORT);
-            toast.show();
-            Intent intent = new Intent(MainActivity.this, Carnet_listActivity.class);
-            intent.putExtra("EMAIL_ACCOUNT", Email.getText().toString());
-            startActivity(intent);
-        } else {
+
+        ArrayList<Account> aa = new ArrayList<>(adao.getRowByEmail(userEmail));
+
+        if (aa.isEmpty()) {
             Toast toast = Toast.makeText(getApplicationContext(), "Wrong information given", Toast
                     .LENGTH_SHORT);
             toast.show();
-            System.out.println("not good");
+        } else {
+            System.out.println("mama");
+            if (userEmail.equals(aa.get(0).getEmail()) && userPassword.equals(aa.get(0).getPassword())) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Authentication Successful",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                Intent intent = new Intent(MainActivity.this, Carnet_listActivity.class);
+                intent.putExtra("EMAIL_ACCOUNT", Email.getText().toString());
+                startActivity(intent);
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Wrong password given", Toast
+                        .LENGTH_SHORT);
+                toast.show();
+            }
         }
+
+
+
+
     }
 
     @Override
@@ -88,10 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         switch (v.getId()) {
-            case R.id.carnet_listButton :
-                Intent carnet_listIntent = new Intent(MainActivity.this, Carnet_listActivity.class);
-                startActivity(carnet_listIntent);
-                break;
             case R.id.login_button :
                 validate(Email.getText().toString(), Password.getText().toString());
                 break;

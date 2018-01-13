@@ -73,7 +73,7 @@ public class AuthDAO extends DAO {
 
     @Override
     public Object getRow(int id) {
-        String sql = "SELECT * FROM account WHERE _id =? ";
+        String sql = "SELECT * FROM auth WHERE _id =? ";
         SQLiteDatabase db = getDb().getReadableDatabase();
         Cursor c = null;
 
@@ -85,6 +85,32 @@ public class AuthDAO extends DAO {
             Log.i("Ex", e.getMessage());
         }
         return this.itemToObject(c);
+    }
+
+    public ArrayList<Account> getRowByEmail(String mail) {
+            String[] projections = { Bdd.FeedAuth._ID,
+                    Bdd.FeedAuth.EMAIL,
+                    Bdd.FeedAuth.MDP,
+                    Bdd.FeedAuth.CREATED_AT,
+                    Bdd.FeedAuth.UPDATED_AT };
+            String sortOrder = projections[0] + " DESC";
+            String whereClause = Bdd.FeedAuth.EMAIL + " = ?";
+            String[] whereArg = { mail + "" };
+
+            Cursor c = getDb().getReadableDatabase().query(
+                    getModelName(),
+                    projections,
+                    whereClause,
+                    whereArg,
+                    null,
+                    null,
+                    sortOrder
+            );
+        ArrayList<Account> items = new ArrayList();
+        while (c.moveToNext()) {
+            items.add(this.itemToObject(c));
+        }
+        return items;
     }
 
     @Override

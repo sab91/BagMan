@@ -34,8 +34,8 @@ public class Carnet_listActivity extends MenuHeader {
         carnet_lv.setAdapter(ca);
         carnet_lv.setOnItemClickListener(item_action);
 
-//        Button new_carnetButton = (Button) findViewById(R.id.new_carnetButton);
-//        new_carnetButton.setOnClickListener(create_carnet);
+        Button new_carnetButton = (Button) findViewById(R.id.new_carnetBtn);
+        new_carnetButton.setOnClickListener(create_carnet);
     }
 
     private View.OnClickListener create_carnet = new View.OnClickListener() {

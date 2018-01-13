@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText Password;
     private TextView Info;
     private Button login;
+    private Button register;
 
 
 
@@ -42,24 +45,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         database = new Bdd(this);
 
         // Text enter in text field in log in page
-        Email = (EditText) findViewById(R.id.login_button);
+        Email = (EditText) findViewById(R.id.email_login);
         Password = (EditText) findViewById(R.id.password_login);
 
         // Button to log in
         login = (Button)findViewById(R.id.login_button);
         login.setOnClickListener(this);
 
+        // Button to register
+        register = (Button)findViewById(R.id.register_button);
+        register.setOnClickListener(this);
+
 
         // Button for seeing carnets
         Button carnet_listbtn = (Button)findViewById(R.id.carnet_listButton);
         carnet_listbtn.setOnClickListener(this);
 
+
     }
 
     private void validate(String userEmail, String userPassword) {
-
-        if ((userEmail == "mail") && (userPassword == "mm")) {
+        if (userEmail.equals("admin") && userPassword.equals("mm")) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Authentication Successful",
+                    Toast
+                    .LENGTH_SHORT);
+            toast.show();
             Intent intent = new Intent(MainActivity.this, Carnet_listActivity.class);
+            startActivity(intent);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Wrong information given", Toast
+                    .LENGTH_SHORT);
+            toast.show();
+            System.out.println("not good");
         }
     }
 
@@ -67,14 +84,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
 
-//        switch (v.getId()) {
-//            case R.id.carnet_listButton :
-//                Class carnet_listActivityClass = Carnet_listActivity.class;
-//                Intent carnet_listIntent = new Intent(MainActivity.this, carnet_listActivityClass);
-//                startActivity(carnet_listIntent);
-//                break;
-//
-//        }
+        switch (v.getId()) {
+            case R.id.carnet_listButton :
+                Intent carnet_listIntent = new Intent(MainActivity.this, Carnet_listActivity.class);
+                startActivity(carnet_listIntent);
+                break;
+            case R.id.login_button :
+                validate(Email.getText().toString(), Password.getText().toString());
+                break;
+            case R.id.register_button :
+                Intent register_view = new Intent(MainActivity.this, Register_view.class);
+                startActivity(register_view);
+                break;
+        }
 
     }
 

@@ -10,9 +10,9 @@
     android:orientation="vertical"
     android:background="@drawable/travel_background_flou1"
     >
-    
+
     <EditText
-        android:id="@+id/email_login"
+        android:id="@+id/email_register"
         android:textColor="#fff"
         android:background="@drawable/edittextstyle"
         android:layout_width="300dp"
@@ -24,7 +24,20 @@
         android:layout_marginTop="100dp"/>
 
     <EditText
-        android:id="@+id/password_login"
+        android:id="@+id/password_register"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittextstyle"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        />
+
+    <EditText
+        android:id="@+id/password_register2"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
@@ -43,27 +56,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/login_button"
-        android:text="Login"
-        android:layout_marginTop="50dp"/>
-
-    <Button
-        android:background="@drawable/buttonstyleselector"
-        android:textColor="#fff"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:id="@+id/register_button"
         android:text="Register"
-        android:layout_marginTop="10dp"/>
-
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/carnet_listButton"
-        android:text="List Carnets"/>
-
+        android:layout_marginTop="50dp"/>
 
 
 </LinearLayout>

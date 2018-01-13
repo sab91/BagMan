@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".Activities.Carnet_createActivity">
         </activity>
+        <activity android:name=".Activities.Register_view">
+        </activity>
     </application>
 
 </manifest>

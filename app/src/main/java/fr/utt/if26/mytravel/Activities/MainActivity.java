@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // initialisation/creation de la bdd
         database = new Bdd(this);
 
+
+
         // Text enter in text field in log in page
         Email = (EditText) findViewById(R.id.email_login);
         Password = (EditText) findViewById(R.id.password_login);
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .LENGTH_SHORT);
             toast.show();
             Intent intent = new Intent(MainActivity.this, Carnet_listActivity.class);
+            intent.putExtra("EMAIL_ACCOUNT", Email.getText().toString());
             startActivity(intent);
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), "Wrong information given", Toast

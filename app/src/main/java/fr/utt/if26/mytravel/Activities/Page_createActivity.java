@@ -21,12 +21,16 @@ public class Page_createActivity extends MenuHeader {
     private Button layout_saveButton;
     private int carnet_id;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_create);
         database = new Bdd(this);
         pdao = new PageDAO(database);
+
+        carnet_id = getIntent().getIntExtra("CURRENT_CARNET", 0);
+
 
         layout_title = (EditText) findViewById(R.id.page_title);
         layout_summary = (EditText) findViewById(R.id.page_summary);
@@ -46,6 +50,7 @@ public class Page_createActivity extends MenuHeader {
 
             pdao.insertRow(page);
             Intent page_listeIntent = new Intent(Page_createActivity.this, Page_listActivity.class);
+            page_listeIntent.putExtra("CURRENT_CARNET", carnet_id);
             startActivity(page_listeIntent);
         }
     }

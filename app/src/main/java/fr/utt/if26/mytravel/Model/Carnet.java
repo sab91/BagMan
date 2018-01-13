@@ -9,25 +9,33 @@ import java.util.Iterator;
 
 public class Carnet extends BaseModel {
     private String name;
+    private String email_account;
     private ArrayList<Page> pages;
 
-    public Carnet(String nom) {
+    public Carnet(String nom, String email) {
         super();
         name = nom;
+        email_account = email;
         pages = new ArrayList<Page>();
     }
 
-    public Carnet(int id, String name, long created_at, long updated_at) {
+
+    public Carnet(int id, String name, String email, long created_at, long updated_at) {
         super(created_at, updated_at);
         setId(id);
         setName(name);
+        setEmail_account(email);
+
         pages = new ArrayList<Page>();
     }
 
-    public Carnet(int id, String name, long created_at, long updated_at, ArrayList<Page> pages_pf) {
+    public Carnet(int id, String name, String email, long created_at, long updated_at,
+                  ArrayList<Page>
+            pages_pf) {
         super(created_at, updated_at);
         setId(id);
         setName(name);
+        setEmail_account(email);
         setPages(pages_pf);
     }
 
@@ -42,6 +50,7 @@ public class Carnet extends BaseModel {
     public String toString() {
         String sb = "Carnet : " + getId() +
                 "\n- Nom : " + getName() +
+                "\n- Email : " + getEmail_account() +
                 "\n - CreatedAt : " + getCreatedAt() +
                 "\n - UpdatedAt : " + getUpdatedAt() +
                 "\n - Number of pages : " + getPages().size();
@@ -52,6 +61,7 @@ public class Carnet extends BaseModel {
     public String toStringWithPages() {
         String sb = "Carnet : " + getId() +
                 "\n- Nom : " + getName() +
+                "\n- Email : " + getEmail_account() +
                 "\n - CreatedAt : " + getCreatedAt() +
                 "\n - UpdatedAt : " + getUpdatedAt() +
                 "\n";
@@ -63,6 +73,14 @@ public class Carnet extends BaseModel {
         }
 
         return sb;
+    }
+
+    public String getEmail_account() {
+        return email_account;
+    }
+
+    public void setEmail_account(String email_account) {
+        this.email_account = email_account;
     }
 
     public ArrayList<Page> getPages() {

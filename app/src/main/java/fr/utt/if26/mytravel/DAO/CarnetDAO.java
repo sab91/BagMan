@@ -26,13 +26,37 @@ public class CarnetDAO extends DAO {
 
     @Override
     public ArrayList getList() {
-        String[] projections = {"_id", "name", "created_at", "updated_at"};
+        String[] projections = {"_id", "name", "created_at", "updated_at", "email_account"};
         String sortOrder = projections[0] + " DESC";
         Cursor c = getDb().getReadableDatabase().query(
                 getModelName(),
                 projections, //Nullable pour avoir toutes les colonnes
                 null,
                 null,
+                null,
+                null,
+                sortOrder
+        );
+
+        ArrayList<Carnet> items = new ArrayList();
+        while (c.moveToNext()) {
+            items.add(this.itemToObject(c));
+        }
+        return items;
+    }
+
+
+    public ArrayList getListByEmail(String email) {
+        String sql = "SELECT * FROM carnet WHERE email_account =? ";
+        String[] projections = {"_id", "name", "created_at", "updated_at", "email_account"};
+        String sortOrder = projections[0] + " DESC";
+        String whereClause = Bdd.FeedCarnet.EMAIL_ACCOUNT + " = ?";
+        String[] whereArg = { email+"" };
+        Cursor c = getDb().getReadableDatabase().query(
+                getModelName(),
+                projections,
+                whereClause,
+                whereArg,
                 null,
                 null,
                 sortOrder
@@ -102,6 +126,7 @@ public class CarnetDAO extends DAO {
         v.put(Bdd.FeedCarnet.NAME, carnet.getName());
         v.put(Bdd.FeedCarnet.CREATED_AT, carnet.getCreatedAt());
         v.put(Bdd.FeedCarnet.UPDATED_AT, carnet.getUpdatedAt());
+        v.put(Bdd.FeedCarnet.EMAIL_ACCOUNT, carnet.getEmail_account());
 
         try {
             int id = (int) getDb().getWritableDatabase().insert(getModelName(), null, v);
@@ -155,9 +180,10 @@ public class CarnetDAO extends DAO {
         try {
             int itemId = c_cf.getInt(0);
             String itemName = c_cf.getString(1);
+            String itemEmail = c_cf.getString(4);
             long itemCreatedAt = c_cf.getLong(2);
             long itemUpdatedAt = c_cf.getLong(3);
-            Carnet carnet = new Carnet(itemId, itemName, itemCreatedAt,
+            Carnet carnet = new Carnet(itemId, itemName, itemEmail, itemCreatedAt,
                     itemUpdatedAt);
             return carnet;
         } catch(Exception e) {

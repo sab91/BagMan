@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class Bdd extends SQLiteOpenHelper {
     public static int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "bagman.db";
+    public static final String DATABASE_NAME = "bagmandb.db";
     private SQLiteDatabase database;
 
     public Bdd(Context ct ) {
@@ -159,7 +159,10 @@ public class Bdd extends SQLiteOpenHelper {
                         NAME + " TEXT," +
                         CREATED_AT + " INTEGER," +
                         UPDATED_AT + " INTEGER," +
-                        EMAIL_ACCOUNT + " TEXT)";
+                        EMAIL_ACCOUNT + " TEXT, "+
+                        "FOREIGN KEY(" + EMAIL_ACCOUNT + ") REFERENCES " + FeedAuth.MODEL_NAME + "(" +
+                        FeedAuth.EMAIL +")" +
+                ");";
         public static final String SQL_DELETE_CARNET = "DROP TABLE IF EXISTS " + MODEL_NAME;
 
     }
@@ -197,7 +200,7 @@ public class Bdd extends SQLiteOpenHelper {
         Log.i("===", "Upgrade");
         DATABASE_VERSION = i1;
         deleteTables();
-        createPageTable();
+        onCreate(database);
     }
 
     public SQLiteDatabase getDatabase() {

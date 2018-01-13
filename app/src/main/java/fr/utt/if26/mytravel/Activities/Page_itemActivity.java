@@ -32,7 +32,7 @@ public class Page_itemActivity extends MenuHeader {
         pdao = new PageDAO(database);
 
         Bundle extras = getIntent().getExtras();
-        id = extras.getInt("id");
+        id = extras.getInt("PAGE_ID");
         page = pdao.getRow(id);
 
         layout_title = (EditText) findViewById(R.id.page_itemTitle);

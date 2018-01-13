@@ -16,12 +16,15 @@ public class Carnet_createActivity extends MenuHeader {
     private Bdd database;
     private CarnetDAO cdao;
     private EditText layout_name;
+    private String current_email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carnet_create1);
         database = new Bdd(this);
+        current_email = getIntent().getStringExtra("EMAIL_ACCOUNT");
         cdao = new CarnetDAO(database);
 
         layout_name = (EditText) findViewById(R.id.carnet_name);
@@ -34,10 +37,11 @@ public class Carnet_createActivity extends MenuHeader {
         @Override
         public void onClick(View view) {
             String name = layout_name.getText().toString();
-            Carnet carnet = new Carnet(name);
+            Carnet carnet = new Carnet(name, current_email);
 
             cdao.insertRow(carnet);
             Intent carnet_listIntent = new Intent(Carnet_createActivity.this, Carnet_listActivity.class);
+            carnet_listIntent.putExtra("EMAIL_ACCOUNT", current_email);
             startActivity(carnet_listIntent);
         }
     };

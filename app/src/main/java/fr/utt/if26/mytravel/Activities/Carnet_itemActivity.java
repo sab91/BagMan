@@ -24,12 +24,14 @@ public class Carnet_itemActivity extends MenuHeader {
     private EditText layout_name;
     private Button layout_deleteButton;
     private Button layout_updateButton;
+    private String current_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carnet_item1);
         database = new Bdd(this);
+        current_email = getIntent().getStringExtra("EMAIL_ACCOUNT");
         cdao = new CarnetDAO(database);
 
         Bundle extras = getIntent().getExtras();
@@ -52,7 +54,7 @@ public class Carnet_itemActivity extends MenuHeader {
         public void onClick(View v) {
             String name = layout_name.getText().toString();
 
-            Carnet carnet = new Carnet(name);
+            Carnet carnet = new Carnet(name, current_email);
 
             cdao.updateRow(id, carnet);
             Intent carnet_listeIntent = new Intent(Carnet_itemActivity.this, Carnet_listActivity.class);

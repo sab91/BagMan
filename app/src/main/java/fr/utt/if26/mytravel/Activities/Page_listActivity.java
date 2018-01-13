@@ -29,7 +29,7 @@ public class Page_listActivity extends MenuHeader {
         database = new Bdd(this);
         PageDAO pdao = new PageDAO(database);
         Bundle extras = getIntent().getExtras();
-        carnet_id = extras.getInt("carnet_id");
+        carnet_id = extras.getInt("CURRENT_CARNET");
 
         Log.e("===", ((Carnet) new CarnetDAO(database).getRow(carnet_id)).toStringWithPages());
 
@@ -48,7 +48,7 @@ public class Page_listActivity extends MenuHeader {
         public void onClick(View view) {
             Intent page_createIntent = new Intent(Page_listActivity.this, Page_createActivity.class);
             Bundle extras = new Bundle();
-            extras.putInt("carnet_id", carnet_id);
+            extras.putInt("CURRENT_CARNET", carnet_id);
             page_createIntent.putExtras(extras);
             startActivity(page_createIntent);
         }
@@ -60,8 +60,7 @@ public class Page_listActivity extends MenuHeader {
             final Page page = (Page) parent.getItemAtPosition(position);
             Intent page_itemIntent = new Intent(Page_listActivity.this, Page_itemActivity.class);
             Bundle extras = new Bundle();
-
-            extras.putInt("id", page.getId());
+            extras.putInt("PAGE_ID", page.getId());
             page_itemIntent.putExtras(extras);
             startActivity(page_itemIntent);
         }

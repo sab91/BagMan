@@ -16,6 +16,8 @@ import fr.utt.if26.mytravel.R;
 
 public class Carnet_listActivity extends MenuHeader {
     private Bdd database;
+    private String current_email;
+    private int current_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,10 @@ public class Carnet_listActivity extends MenuHeader {
         database = new Bdd(this);
         CarnetDAO cdao = new CarnetDAO(database);
 
-        CarnetAdapter ca = new CarnetAdapter(this, R.layout.row_item, cdao.getList());
+
+        current_email = getIntent().getStringExtra("EMAIL_ACCOUNT");
+
+        CarnetAdapter ca = new CarnetAdapter(this, R.layout.row_item, cdao.getListByEmail(current_email));
 
         ListView carnet_lv = (ListView) findViewById(R.id.list_carnet);
         carnet_lv.setAdapter(ca);
@@ -39,6 +44,7 @@ public class Carnet_listActivity extends MenuHeader {
         @Override
         public void onClick(View view) {
             Intent carnet_createIntent = new Intent(Carnet_listActivity.this, Carnet_createActivity.class);
+            carnet_createIntent.putExtra("EMAIL_ACCOUNT", current_email);
             startActivity(carnet_createIntent);
         }
     };
@@ -48,8 +54,9 @@ public class Carnet_listActivity extends MenuHeader {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final Carnet carnet = (Carnet) parent.getItemAtPosition(position);
             Intent page_listIntent = new Intent(Carnet_listActivity.this, Page_listActivity.class);
+
             Bundle extras = new Bundle();
-            extras.putInt("carnet_id", carnet.getId());
+            extras.putInt("CURRENT_CARNET", carnet.getId());
             page_listIntent.putExtras(extras);
             startActivity(page_listIntent);
         }

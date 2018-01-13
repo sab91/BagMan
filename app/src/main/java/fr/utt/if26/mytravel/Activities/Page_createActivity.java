@@ -19,6 +19,7 @@ public class Page_createActivity extends MenuHeader {
     private EditText layout_summary;
     private EditText layout_content;
     private Button layout_saveButton;
+    private int carnet_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class Page_createActivity extends MenuHeader {
             String title = layout_title.getText().toString();
             String summary = layout_summary.getText().toString();
             String content = layout_content.getText().toString();
-            Page page = new Page(title, content, summary);
+            Page page = new Page(title, content, summary, carnet_id);
 
             pdao.insertRow(page);
             Intent page_listeIntent = new Intent(Page_createActivity.this, Page_listActivity.class);

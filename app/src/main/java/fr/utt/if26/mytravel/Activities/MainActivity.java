@@ -1,11 +1,15 @@
 package fr.utt.if26.mytravel.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EdgeEffect;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,8 +24,14 @@ import fr.utt.if26.mytravel.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Bdd database;
+    private EditText Email;
+    private EditText Password;
+    private TextView Info;
+    private Button login;
 
 
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // initialisation/creation de la bdd
         database = new Bdd(this);
 
+        // Text enter in text field in log in page
+        Email = (EditText) findViewById(R.id.login_button);
+        Password = (EditText) findViewById(R.id.password_login);
 
-        // Button for seeing pages
-        Button page_listButton = (Button)findViewById(R.id.page_listButton);
-        page_listButton.setOnClickListener(this);
+        // Button to log in
+        login = (Button)findViewById(R.id.login_button);
+        login.setOnClickListener(this);
 
 
         // Button for seeing carnets
@@ -43,21 +56,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void validate(String userEmail, String userPassword) {
+
+        if ((userEmail == "mail") && (userPassword == "mm")) {
+            Intent intent = new Intent(MainActivity.this, Carnet_listActivity.class);
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.carnet_listButton :
-                Class carnet_listActivityClass = Carnet_listActivity.class;
-                Intent carnet_listIntent = new Intent(MainActivity.this, carnet_listActivityClass);
-                startActivity(carnet_listIntent);
-                break;
-            case R.id.page_listButton :
-                Class page_listActivityClass =Page_listActivity.class;
-                Intent page_listIntent = new Intent(MainActivity.this, page_listActivityClass);
-                startActivity(page_listIntent);
-                break;
-        }
+
+//        switch (v.getId()) {
+//            case R.id.carnet_listButton :
+//                Class carnet_listActivityClass = Carnet_listActivity.class;
+//                Intent carnet_listIntent = new Intent(MainActivity.this, carnet_listActivityClass);
+//                startActivity(carnet_listIntent);
+//                break;
+//
+//        }
 
     }
 

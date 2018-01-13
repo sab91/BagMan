@@ -39,6 +39,7 @@ public class Bdd extends SQLiteOpenHelper {
         try {
             createPageTable();
             createCarnetTable();
+            createAuthTable();
         } catch (Exception ex){
             // Essayer de préciser quel Table pose problème
             Log.e("===", "Probleme dans la création des tables");
@@ -67,12 +68,24 @@ public class Bdd extends SQLiteOpenHelper {
         }
     }
 
+    public void createAuthTable() {
+        try {
+            database.execSQL(FeedAuth.SQL_CREATE_AUTH);
+            Log.i("==", FeedAuth.MODEL_NAME + " is created");
+        } catch(Exception ex) {
+            Log.i("===", ex.getMessage());
+        }
+    }
+
     /**
      * Suppresion de l'ensemble des tables de la bdd
      * Methode qui appelle les méthodes de suppression de chaque tables
      */
     public void deleteTables() {
+
         deletePageTable();
+        deleteCarnetTable();
+        deleteAuthTable();
     }
 
     /**
@@ -96,6 +109,15 @@ public class Bdd extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteAuthTable() {
+        try {
+            database.execSQL(FeedAuth.SQL_DELETE_AUTH);
+            Log.i("==", FeedAuth.MODEL_NAME + " has been deleted");
+        } catch(Exception ex) {
+            Log.i("===", "Prob de suppression");
+        }
+    }
+
     /**
      * Classe / structure du modele Page
      * Toutes les infos sur la strucutre et les commandes SQL de base
@@ -107,21 +129,22 @@ public class Bdd extends SQLiteOpenHelper {
         public static final String SUMMARY = "summary";
         public static final String CREATED_AT = "created_at";
         public static final String UPDATED_AT = "updated_at";
+        public static final String CARNET = "carnet_id";
         public static final String SQL_CREATE_PAGES =
-            "CREATE TABLE " + MODEL_NAME + " (" +
-                _ID + " INTEGER PRIMARY KEY," +
-                TITLE + " TEXT," +
-                CONTENT + " TEXT," +
-                SUMMARY + " TEXT," +
-                CREATED_AT + " INTEGER," +
-                UPDATED_AT + " INTEGER)";
+                "CREATE TABLE " + MODEL_NAME + " (" +
+                        _ID + " INTEGER PRIMARY KEY," +
+                        TITLE + " TEXT," +
+                        CONTENT + " TEXT," +
+                        SUMMARY + " TEXT," +
+                        CREATED_AT + " INTEGER," +
+                        UPDATED_AT + " INTEGER," +
+                        CARNET + " INTEGER," +
+                        "FOREIGN KEY(" + CARNET + ") REFERENCES " + FeedCarnet.MODEL_NAME + "(" + FeedCarnet._ID +")" +
+                        ");";
         public static final String SQL_DELETE_PAGES = "DROP TABLE IF EXISTS " + MODEL_NAME;
     }
 
-    /**
-     * Future classe pour Story, sous la même forme que Page
-     */
-    public class FeedStory implements BaseColumns {}
+
 
     public class FeedCarnet implements BaseColumns {
 
@@ -129,13 +152,34 @@ public class Bdd extends SQLiteOpenHelper {
         public static final String NAME = "name";
         public static final String CREATED_AT = "created_at";
         public static final String UPDATED_AT = "updated_at";
+        public static final String EMAIL_ACCOUNT = "email_account";
         public static final String SQL_CREATE_CARNET =
                 "CREATE TABLE " + MODEL_NAME + " (" +
                         _ID + " INTEGER PRIMARY KEY," +
                         NAME + " TEXT," +
                         CREATED_AT + " INTEGER," +
-                        UPDATED_AT + " INTEGER)";
+                        UPDATED_AT + " INTEGER," +
+                        EMAIL_ACCOUNT + " TEXT)";
         public static final String SQL_DELETE_CARNET = "DROP TABLE IF EXISTS " + MODEL_NAME;
+
+    }
+
+    // table pour l'authentification
+    public class FeedAuth implements BaseColumns {
+
+        public static final String MODEL_NAME = "auth";
+        public static final String EMAIL = "email";
+        public static final String MDP = "mdp";
+        public static final String CREATED_AT = "created_at";
+        public static final String UPDATED_AT = "updated_at";
+        public static final String SQL_CREATE_AUTH =
+                "CREATE TABLE " + MODEL_NAME + " (" +
+                        _ID + " INTEGER PRIMARY KEY," +
+                        EMAIL + " TEXT," +
+                        MDP + " TEXT," +
+                        CREATED_AT + " INTEGER," +
+                        UPDATED_AT + " INTEGER)";
+        public static final String SQL_DELETE_AUTH = "DROP TABLE IF EXISTS " + MODEL_NAME;
 
     }
 

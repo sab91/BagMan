@@ -6,17 +6,15 @@
               tools:context="fr.utt.if26.mytravel.Activities.Carnet_createActivity"
               android:orientation="vertical"
               android:padding="4dip">
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/carnet_name"
         android:hint="Name"/>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/carnet_saveButton"
-        android:text="Save ! :D"/>
+        android:text="Save"/>
 
 </LinearLayout>

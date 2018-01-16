@@ -52,6 +52,7 @@ public class Page_createActivity extends MenuHeader {
             Intent page_listeIntent = new Intent(Page_createActivity.this, Page_listActivity.class);
             page_listeIntent.putExtra("CURRENT_CARNET", carnet_id);
             startActivity(page_listeIntent);
+            finish();
         }
     }
 

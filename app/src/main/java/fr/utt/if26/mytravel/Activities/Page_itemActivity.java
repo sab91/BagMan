@@ -58,8 +58,13 @@ public class Page_itemActivity extends MenuHeader {
             Page new_page = new Page(title, content, summary, page.getCarnet_id());
 
             pdao.updateRow(id, new_page);
-            Intent page_listeIntent = new Intent(Page_itemActivity.this, Page_listActivity.class);
-            startActivity(page_listeIntent);
+//            Intent page_listeIntent = new Intent(Page_itemActivity.this, Page_listActivity.class);
+//            Bundle extras = new Bundle();
+//            extras.putInt("CURRENT_CARNET", new_page.getCarnet_id());
+//            page_listeIntent.putExtras(extras);
+//            startActivity(page_listeIntent);
+//            finishActivity(page_listeIntent);
+            finish();
         }
     }
 
@@ -88,7 +93,7 @@ public class Page_itemActivity extends MenuHeader {
                         dialogInterface.dismiss();
                         Intent page_listIntent = new Intent(Page_itemActivity.this, Page_listActivity.class);
                         Bundle extras = new Bundle();
-                        extras.putInt("carnet_id", page.getCarnet_id());
+                        extras.putInt("CURRENT_CARNET", page.getCarnet_id());
                         page_listIntent.putExtras(extras);
                         startActivity(page_listIntent);
                         Toast deleteToast = Toast.makeText(getApplicationContext(), "La page " + pageTitle + " a été supprimée", Toast.LENGTH_SHORT);
@@ -102,4 +107,6 @@ public class Page_itemActivity extends MenuHeader {
                     }
                 }).create();
     }
+
+
 }

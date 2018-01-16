@@ -43,6 +43,7 @@ public class Carnet_createActivity extends MenuHeader {
             Intent carnet_listIntent = new Intent(Carnet_createActivity.this, Carnet_listActivity.class);
             carnet_listIntent.putExtra("EMAIL_ACCOUNT", current_email);
             startActivity(carnet_listIntent);
+            finish();
         }
     };
 
